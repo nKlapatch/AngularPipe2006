@@ -1,0 +1,68 @@
+<div class='panel panel-primary'>
+    <div class='panel-heading'>
+        <!-- Data binding is the projection of values from the TS component
+        file onto the html view. There are many different forms of data Binding
+    
+        the {{}} is known as interpolation. It evaluates an expression,
+        so you can do simple operations like {{5+10}} = 15, or you can refer to variables
+        inside the TS component file. Doing this is know as One-way Data Binding.
+        It displays the value & also immediately shows changes made in the TS file of that value.
+        It cannot be change or manipulated from the html page i.e. data from the ts file
+        shows on the html but data from the html doesn't show on the TS -->
+        {{pageTitle}}
+    </div>
+    <div class='panel-body'>
+        <div class='row'>
+            <div class='col-md-2'>
+                FilterBy:
+            </div>
+            <div class='col-md-4'>
+                <input type='text'[(ngModel)] = 'listFilter'>
+                {{attrListFilter}}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class = 'table-responsive'>
+    <table class='table'>
+        <thead>
+            <tr>
+                <th>
+                    <!-- the () syntax is used for Event Binding, Event Binding ties an HTML
+                    element's event to-->
+                    
+                    <button class='btn btn-primary' (click)='toggleImage()'>
+                        {{showImage? 'Hide': 'Show'}}
+                    </button>
+                </th>
+                <th>Superhero</th>
+                <!--<th>Rank</th>-->
+                <th>Ability</th>
+                <th>Org</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!--Directives, are custom markers on a DOM element (attribute, element name, or CSS class)
+            that tell Angular to attach specified behavior to the Dom Element, or even transform that DOM
+            and its children.
+            Below is a structural directive, which can alter the entire structure of the DOM and its elements 
+            some common examples of Structural Directives are:
+                *ngFor, *ngIf,*ngSwitch, *ngDefault, *ngIfElse -->
+            <tr *ngFor = 'let temp of filteredSuperHeroes'>
+                <td>
+                    <!-- [] is the syntax for property binding, it's a one-way binding where 
+                    we project values from TS on to the attributes of an HTML element-->
+                    <img *ngIf='showImage' [src] = 'temp.image' width = '100' margin = '2'/>
+                </td>
+                <td><a [routerLink]="['/profile',temp.name]">{{temp.name}}</a></td>
+                <td><app-star [rank]='temp.rank' (starClicked) = 'starEventWasTriggered($event)'></app-star></td>
+                <td>{{temp.ability}}</td>
+                <!-- Pipes transform the data before it's displayed in interpolation
+                    they use the {{target | pipeType }} syntax, there are predefined pipes of uppercase, lowercase, format
+                    currency, etc -->
+                <td>{{temp.organization | uppercase}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

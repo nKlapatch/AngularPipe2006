@@ -1,0 +1,9 @@
+<p>{{currentHero}}</p>
+<div>
+    <button (click) = "getTodosEc2()">Get Todos to Console</button>
+    <form [formGroup] = "todos">
+        <input type="text" formControlName="title">
+        <button (click)='postTodoEc2(todos)'>Send Todo</button>
+    </form>
+
+</div>
